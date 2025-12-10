@@ -1,0 +1,121 @@
+/* ===== TemuKost Home UI ===== */
+
+.section-title {
+  font-weight: 800;
+  letter-spacing: .2px;
+}
+
+.section-subtitle {
+  color: #6c757d;
+  font-size: .95rem;
+}
+
+/* horizontal scroll row */
+.scroll-row {
+  display: flex;
+  gap: 14px;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scroll-snap-type: x mandatory;
+}
+.scroll-row::-webkit-scrollbar {
+  height: 8px;
+}
+.scroll-row::-webkit-scrollbar-thumb {
+  background: #e9ecef;
+  border-radius: 999px;
+}
+.scroll-item {
+  scroll-snap-align: start;
+  flex: 0 0 auto;
+  width: 260px;
+}
+
+/* card kost */
+.kost-card {
+  border: 0;
+  border-radius: 16px;
+  overflow: hidden;
+  box-shadow: 0 10px 25px rgba(16,24,40,.06);
+  transition: .18s ease;
+}
+.kost-card:hover {
+  transform: translateY(-4px);
+  box-shadow: 0 14px 35px rgba(16,24,40,.10);
+}
+.kost-img {
+  height: 170px;
+  object-fit: cover;
+  width: 100%;
+  background: #f8f9fa;
+}
+
+.kost-badge {
+  position: absolute;
+  top: 10px;
+  left: 10px;
+  background: white;
+  border-radius: 999px;
+  padding: 4px 10px;
+  font-size: .82rem;
+  font-weight: 700;
+  box-shadow: 0 4px 10px rgba(0,0,0,.08);
+}
+
+.kost-rating {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: rgba(0,0,0,.7);
+  color: #fff;
+  border-radius: 999px;
+  padding: 4px 8px;
+  font-size: .8rem;
+  display: flex;
+  gap: 4px;
+  align-items: center;
+}
+
+.kost-title {
+  font-weight: 700;
+  font-size: 1.02rem;
+  line-height: 1.2;
+  margin-bottom: 4px;
+}
+.kost-location {
+  color: #6c757d;
+  font-size: .9rem;
+}
+
+.kost-features {
+  color: #6c757d;
+  font-size: .86rem;
+}
+
+.price {
+  font-weight: 800;
+  font-size: 1.05rem;
+}
+.price-old {
+  text-decoration: line-through;
+  color: #adb5bd;
+  font-size: .9rem;
+}
+
+.remaining {
+  font-size: .85rem;
+  color: #dc3545;
+  font-weight: 700;
+}
+
+.nav-arrow {
+  width: 36px; height: 36px;
+  border-radius: 999px;
+  border: 1px solid #e9ecef;
+  background: white;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  transition: .15s ease;
+}
+.nav-arrow:hover { background: #f8f9fa; }

@@ -35,4 +35,11 @@ class Kost extends Model
     {
         return $this->hasMany(KostPhoto::class);
     }
+    public function bookings()
+{
+    return $this->hasMany(Booking::class);
+}
+
+    
+
 }

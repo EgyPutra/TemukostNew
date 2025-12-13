@@ -19,6 +19,16 @@
                     <x-nav-link :href="route('home')" :active="request()->routeIs('home')">
                         {{ __('Cari Kost') }}
                     </x-nav-link>
+
+                    {{-- 🔔 MENU KHUSUS OWNER --}}
+                    @auth
+                        @if(Auth::user()->role === 'owner')
+                            <x-nav-link :href="route('owner.bookings.index')"
+                                :active="request()->routeIs('owner.bookings.*')">
+                                {{ __('Booking Masuk') }}
+                            </x-nav-link>
+                        @endif
+                    @endauth
                 </div>
             </div>
 
@@ -48,7 +58,7 @@
                             <form method="POST" action="{{ route('logout') }}">
                                 @csrf
                                 <x-dropdown-link :href="route('logout')"
-                                        onclick="event.preventDefault(); this.closest('form').submit();">
+                                    onclick="event.preventDefault(); this.closest('form').submit();">
                                     {{ __('Log Out') }}
                                 </x-dropdown-link>
                             </form>
@@ -91,10 +101,21 @@
             <x-responsive-nav-link :href="route('home')" :active="request()->routeIs('home')">
                 {{ __('Cari Kost') }}
             </x-responsive-nav-link>
+
+            {{-- 🔔 MENU OWNER (MOBILE) --}}
+            @auth
+                @if(Auth::user()->role === 'owner')
+                    <x-responsive-nav-link
+                        :href="route('owner.bookings.index')"
+                        :active="request()->routeIs('owner.bookings.*')">
+                        {{ __('Booking Masuk') }}
+                    </x-responsive-nav-link>
+                @endif
+            @endauth
         </div>
 
         @auth
-            <!-- Responsive Settings Options (Logged in) -->
+            <!-- Responsive Settings Options -->
             <div class="pt-4 pb-1 border-t border-gray-200">
                 <div class="px-4">
                     <div class="font-medium text-base text-gray-800">{{ Auth::user()->name }}</div>
@@ -106,11 +127,10 @@
                         {{ __('Profile') }}
                     </x-responsive-nav-link>
 
-                    <!-- Authentication -->
                     <form method="POST" action="{{ route('logout') }}">
                         @csrf
                         <x-responsive-nav-link :href="route('logout')"
-                                onclick="event.preventDefault(); this.closest('form').submit();">
+                            onclick="event.preventDefault(); this.closest('form').submit();">
                             {{ __('Log Out') }}
                         </x-responsive-nav-link>
                     </form>
@@ -119,7 +139,6 @@
         @endauth
 
         @guest
-            <!-- Responsive Guest Options -->
             <div class="pt-4 pb-1 border-t border-gray-200">
                 <div class="px-4 space-y-2">
                     <a href="{{ route('login') }}" class="btn btn-outline-primary btn-sm w-100">

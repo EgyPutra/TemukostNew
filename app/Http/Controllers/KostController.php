@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Kost;
 use App\Models\Facility;
+use App\Models\Booking;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -12,16 +13,30 @@ class KostController extends Controller
     /**
      * List kost milik owner
      */
-public function index()
-{
-    $kosts = Kost::where('owner_id', Auth::id())
-        ->with(['facilities', 'photos'])
-        ->latest()
-        ->paginate(10);
+    public function index()
+    {
+        $kosts = Kost::where('owner_id', Auth::id())
+            ->with(['facilities', 'photos'])
+            ->latest()
+            ->paginate(10);
 
-    return view('owner.kost.index', compact('kosts'));
-}
+        return view('owner.kost.index', compact('kosts'));
+    }
 
+    /**
+     * 🔔 NOTIFIKASI BOOKING MASUK (UNTUK OWNER)
+     */
+    public function bookings()
+    {
+        $bookings = Booking::whereHas('kost', function ($query) {
+                $query->where('owner_id', Auth::id());
+            })
+            ->with(['kost', 'user'])
+            ->latest()
+            ->get();
+
+        return view('owner.bookings.index', compact('bookings'));
+    }
 
     /**
      * Form tambah kost
@@ -49,7 +64,7 @@ public function index()
             'deskripsi' => 'nullable|string',
             'photos.*' => 'nullable|image|max:2048',
 
-            // ✅ fasilitas
+            // fasilitas
             'facilities' => 'nullable|array',
             'facilities.*' => 'exists:facilities,id',
         ]);
@@ -59,10 +74,10 @@ public function index()
 
         $kost = Kost::create($data);
 
-        // ✅ simpan fasilitas ke pivot
+        // simpan fasilitas ke pivot
         $kost->facilities()->sync($request->facilities ?? []);
 
-        // simpan foto jika ada
+        // simpan foto
         if ($request->hasFile('photos')) {
             foreach ($request->file('photos') as $photo) {
                 $path = $photo->store('kost', 'public');
@@ -76,7 +91,7 @@ public function index()
     }
 
     /**
-     * Detail kost owner (opsional)
+     * Detail kost owner
      */
     public function show(Kost $kost)
     {
@@ -119,17 +134,17 @@ public function index()
             'is_active' => 'sometimes|boolean',
             'photos.*' => 'nullable|image|max:2048',
 
-            // ✅ fasilitas
+            // fasilitas
             'facilities' => 'nullable|array',
             'facilities.*' => 'exists:facilities,id',
         ]);
 
         $kost->update($data);
 
-        // ✅ update pivot fasilitas
+        // update pivot fasilitas
         $kost->facilities()->sync($request->facilities ?? []);
 
-        // tambah foto baru jika ada
+        // tambah foto baru
         if ($request->hasFile('photos')) {
             foreach ($request->file('photos') as $photo) {
                 $path = $photo->store('kost', 'public');

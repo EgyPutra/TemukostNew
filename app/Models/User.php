@@ -31,6 +31,11 @@ class User extends Authenticatable
     {
         return $this->hasMany(\App\Models\Kost::class, 'owner_id');
     }
+    public function bookings()
+{
+    return $this->hasMany(Booking::class);
+}
+
 
     /**
      * The attributes that should be hidden for serialization.

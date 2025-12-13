@@ -63,10 +63,29 @@
                         <div class="text-muted small">{{ $kost->owner->email }}</div>
                     </div>
                 </div>
+@auth
+<form method="POST" action="{{ route('booking.store', $kost) }}" class="mt-4">
+    @csrf
 
-                <button class="btn btn-primary w-100 mt-4 rounded-3">
-                    Ajukan Sewa / Chat Pemilik
-                </button>
+    <div class="mb-3">
+        <label class="form-label fw-semibold">Tanggal Mulai Sewa</label>
+        <input type="date"
+               name="start_date"
+               class="form-control"
+               required>
+    </div>
+
+    <button type="submit" class="btn btn-primary w-100 rounded-3">
+        Ajukan Sewa
+    </button>
+</form>
+@else
+<a href="{{ route('login') }}"
+   class="btn btn-outline-primary w-100 mt-4 rounded-3">
+    Login untuk Booking
+</a>
+@endauth
+
             </div>
         </div>
     </div>

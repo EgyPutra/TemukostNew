@@ -5,31 +5,48 @@ use Illuminate\Support\Facades\Auth;
 use App\Http\Controllers\ProfileController;
 use App\Http\Controllers\KostController;
 use App\Http\Controllers\PublicKostController;
+use App\Http\Controllers\ReviewController;
+use App\Http\Controllers\BookingController;
 
 /*
 |--------------------------------------------------------------------------
-| Public Routes (Pencari Kost)
+| Public Routes
 |--------------------------------------------------------------------------
 */
 Route::get('/', [PublicKostController::class, 'index'])->name('home');
+Route::get('/kost', [PublicKostController::class, 'index'])->name('kost.search');
 Route::get('/kost/{kost}', [PublicKostController::class, 'show'])->name('kost.show');
 
 /*
 |--------------------------------------------------------------------------
-| Dashboard Routes
+| Review & Booking (Seeker)
+|--------------------------------------------------------------------------
+*/
+Route::middleware('auth')->group(function () {
+
+    Route::post('/kost/{kost}/review',
+        [ReviewController::class, 'store'])
+        ->name('review.store');
+
+    Route::post('/kost/{kost}/booking',
+        [BookingController::class, 'store'])
+        ->name('booking.store');
+});
+
+/*
+|--------------------------------------------------------------------------
+| Dashboard (NETRAL, TIDAK REDIRECT)
 |--------------------------------------------------------------------------
 */
 Route::get('/dashboard', function () {
-    $role = Auth::user()->role;
-
-    return $role === 'owner'
-        ? redirect()->route('owner.kost.index')
+    return Auth::user()->role === 'owner'
+        ? view('dashboard-owner')
         : view('dashboard-seeker');
 })->middleware(['auth', 'verified'])->name('dashboard');
 
 /*
 |--------------------------------------------------------------------------
-| Profile Routes (default Breeze)
+| Profile
 |--------------------------------------------------------------------------
 */
 Route::middleware('auth')->group(function () {
@@ -40,14 +57,19 @@ Route::middleware('auth')->group(function () {
 
 /*
 |--------------------------------------------------------------------------
-| Owner Routes (Pemilik Kost)
+| Owner Routes
 |--------------------------------------------------------------------------
 */
 Route::middleware(['auth', 'owner'])
     ->prefix('owner')
     ->name('owner.')
     ->group(function () {
+
         Route::resource('kost', KostController::class);
+
+        Route::get('/bookings',
+            [KostController::class, 'bookings'])
+            ->name('bookings.index');
     });
 
 require __DIR__.'/auth.php';

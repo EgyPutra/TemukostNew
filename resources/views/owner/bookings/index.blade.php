@@ -13,13 +13,44 @@
                     <strong>Penyewa:</strong> {{ $booking->user->name }}
                 </p>
 
-                <p class="mb-1">
+                <p class="mb-2">
                     <strong>Tanggal Mulai:</strong> {{ $booking->start_date }}
                 </p>
 
-                <span class="badge bg-warning text-dark">
-                    {{ strtoupper($booking->status) }}
-                </span>
+                {{-- STATUS --}}
+                @if($booking->status === 'pending')
+                    <span class="badge bg-warning">PENDING</span>
+                @elseif($booking->status === 'approved')
+                    <span class="badge bg-success">DISETUJUI</span>
+                @else
+                    <span class="badge bg-danger">DITOLAK</span>
+                @endif
+
+                {{-- ACTION --}}
+                <div class="mt-3 d-flex gap-2">
+                    @if($booking->status === 'pending')
+                        <form method="POST"
+                              action="{{ route('owner.bookings.approve', $booking) }}">
+                            @csrf
+                            <button class="btn btn-success btn-sm">
+                                ACC
+                            </button>
+                        </form>
+
+                        <form method="POST"
+                              action="{{ route('owner.bookings.reject', $booking) }}">
+                            @csrf
+                            <button class="btn btn-danger btn-sm">
+                                Tolak
+                            </button>
+                        </form>
+                    @endif
+
+                    <a href="{{ route('chat.show', $booking) }}"
+                       class="btn btn-outline-primary btn-sm">
+                        Chat
+                    </a>
+                </div>
             </div>
         </div>
     @empty

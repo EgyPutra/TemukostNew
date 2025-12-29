@@ -119,3 +119,20 @@
   transition: .15s ease;
 }
 .nav-arrow:hover { background: #f8f9fa; }
+.hero-section {
+    min-height: 100vh;
+    background: url("https://images.unsplash.com/photo-1502672260266-1c1ef2d93688")
+        center / cover no-repeat;
+    position: relative;
+}
+
+.hero-section .overlay {
+    position: absolute;
+    inset: 0;
+    background: rgba(0, 0, 0, 0.55);
+}
+
+.search-box input:focus,
+.search-box select:focus {
+    box-shadow: none;
+}

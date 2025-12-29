@@ -2,6 +2,14 @@
 
 @section('content')
 <div class="container py-4">
+    @if(session('success'))
+    <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="bi bi-check-circle me-2"></i>
+        {{ session('success') }}
+        <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
+    </div>
+@endif
+
 
     <div class="row g-4">
         {{-- GALERI FOTO --}}
@@ -67,13 +75,22 @@
 <form method="POST" action="{{ route('booking.store', $kost) }}" class="mt-4">
     @csrf
 
-    <div class="mb-3">
-        <label class="form-label fw-semibold">Tanggal Mulai Sewa</label>
-        <input type="date"
-               name="start_date"
-               class="form-control"
-               required>
-    </div>
+<div class="mb-3">
+    <label class="form-label fw-semibold">Tanggal Mulai Sewa</label>
+    <input type="date"
+           name="start_date"
+           class="form-control"
+           required>
+</div>
+
+<div class="mb-3">
+    <label class="form-label fw-semibold">Tanggal Akhir Sewa</label>
+    <input type="date"
+           name="end_date"
+           class="form-control"
+           required>
+</div>
+
 
     <button type="submit" class="btn btn-primary w-100 rounded-3">
         Ajukan Sewa

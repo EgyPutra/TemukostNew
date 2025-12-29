@@ -1,33 +1,23 @@
 <!DOCTYPE html>
-<html lang="{{ str_replace('_', '-', app()->getLocale()) }}">
+<html lang="id">
 <head>
-    <meta charset="utf-8">
+    <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <meta name="csrf-token" content="{{ csrf_token() }}">
 
     <title>{{ config('app.name', 'TemuKost') }}</title>
 
-    <!-- Vite -->
     @vite(['resources/css/app.css', 'resources/js/app.js'])
 </head>
-<body class="font-sans antialiased bg-light">
-    <div class="min-h-screen">
-        {{-- Navbar --}}
-        @include('layouts.navigation')
+<body class="bg-light">
 
-        {{-- Optional Header --}}
-        @isset($header)
-            <header class="bg-white shadow">
-                <div class="max-w-7xl mx-auto py-3 px-4 sm:px-6 lg:px-8">
-                    {{ $header }}
-                </div>
-            </header>
-        @endisset
+    {{-- NAVBAR --}}
+    @include('layouts.navbar')
 
-        <!-- Page Content -->
-        <main>
-            @yield('content')
-        </main>
-    </div>
+    {{-- CONTENT --}}
+    <main class="container py-4">
+        @yield('content')
+    </main>
+
 </body>
 </html>

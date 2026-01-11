@@ -19,7 +19,7 @@
 
                 {{-- STATUS --}}
                 @if($booking->status === 'pending')
-                    <span class="badge bg-warning">PENDING</span>
+                    <span class="badge bg-warning">MENUNGGU KONFIRMASI</span>
                 @elseif($booking->status === 'approved')
                     <span class="badge bg-success">DISETUJUI</span>
                 @else
@@ -33,7 +33,7 @@
                               action="{{ route('owner.bookings.approve', $booking) }}">
                             @csrf
                             <button class="btn btn-success btn-sm">
-                                ACC
+                                Setuju
                             </button>
                         </form>
 

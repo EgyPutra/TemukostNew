@@ -29,9 +29,7 @@ Route::middleware('auth')->group(function () {
     // ===============================
     // REVIEW
     // ===============================
-    Route::post('/kost/{kost}/review',
-        [ReviewController::class, 'store'])
-        ->name('review.store');
+
 
     // ===============================
     // BOOKING (SEEKER)

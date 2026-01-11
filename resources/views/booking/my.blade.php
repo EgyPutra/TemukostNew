@@ -2,7 +2,7 @@
 
 @section('content')
 <div class="container py-4">
-    <h4 class="fw-bold mb-3">Booking Saya</h4>
+    <h4 class="fw-bold mb-3">Booking</h4>
 
     @forelse($bookings as $booking)
         <div class="card mb-3">
@@ -11,8 +11,26 @@
                 <p class="mb-1">
                     <strong>Tanggal Mulai:</strong> {{ $booking->start_date }}
                 </p>
-                <span class="badge bg-warning text-dark">
-                    {{ strtoupper($booking->status) }}
+                @php
+                    $statusLabel = [
+                    'pending'   => 'Menunggu Konfirmasi',
+                    'approved'  => 'Disetujui',
+                    'rejected'  => 'Ditolak',
+                    'cancelled' => 'Dibatalkan',
+                    'completed' => 'Selesai',
+                ];
+
+                    $statusColor = [
+                    'pending'   => 'bg-warning text-dark',
+                    'approved'  => 'bg-success',
+                    'rejected'  => 'bg-danger',
+                    'cancelled' => 'bg-secondary',
+                    'completed' => 'bg-primary',
+                ];
+                @endphp
+
+                <span class="badge {{ $statusColor[$booking->status] ?? 'bg-dark' }}">
+                    {{ $statusLabel[$booking->status] ?? ucfirst($booking->status) }}
                 </span>
 
                 <div class="mt-2">

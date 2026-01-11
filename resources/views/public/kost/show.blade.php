@@ -10,6 +10,10 @@
     </div>
 @endif
 
+---a href="{{ route('kost.search') }}"
+   class="btn btn-outline-secondary mb-3">
+    ← Kembali ke Daftar Kost
+</a>
 
     <div class="row g-4">
         {{-- GALERI FOTO --}}

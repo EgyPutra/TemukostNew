@@ -10,11 +10,6 @@
                 {{ ucfirst($kost->tipe) }}
             </div>
 
-            <div class="kost-rating">
-                <i class="bi bi-star-fill text-warning"></i>
-                <span>{{ $rating }}</span>
-            </div>
-
             @if($kost->photos->first())
                 <img class="kost-img"
                      src="{{ asset('storage/'.$kost->photos->first()->path) }}" alt="">

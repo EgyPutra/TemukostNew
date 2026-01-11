@@ -1,0 +1,8 @@
+
+buat kembali di (public/kost/show.blade.php).
+
+<a href="{{ route('kost.search') }}"
+   class="btn btn-outline-secondary mb-3">
+    ← Kembali ke Daftar Kost
+</a>
+

@@ -1,0 +1,31 @@
+// Fix Bootstrap Dropdown
+document.addEventListener('DOMContentLoaded', function () {
+    // Inisialisasi semua dropdown
+    const dropdowns = document.querySelectorAll('.dropdown-toggle');
+    dropdowns.forEach(function(dropdown) {
+        dropdown.addEventListener('click', function(e) {
+            e.preventDefault();
+            const menu = this.nextElementSibling;
+            
+            // Toggle dropdown
+            if (menu.classList.contains('show')) {
+                menu.classList.remove('show');
+            } else {
+                // Close all other dropdowns
+                document.querySelectorAll('.dropdown-menu.show').forEach(function(openMenu) {
+                    openMenu.classList.remove('show');
+                });
+                menu.classList.add('show');
+            }
+        });
+    });
+
+    // Close dropdown when clicking outside
+    document.addEventListener('click', function(e) {
+        if (!e.target.closest('.dropdown')) {
+            document.querySelectorAll('.dropdown-menu.show').forEach(function(menu) {
+                menu.classList.remove('show');
+            });
+        }
+    });
+});

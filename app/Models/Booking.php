@@ -1,5 +1,5 @@
 <?php
-
+//model itu representasi database sebagai jembatan ke database
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;

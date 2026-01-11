@@ -53,6 +53,15 @@
                 @endforeach
             </select>
         </div>
+        <div class="mb-3">
+    <label class="form-label">Luas Kamar (m²)</label>
+    <input type="number"
+           name="luas_kamar"
+           class="form-control"
+           value="{{ old('luas_kamar', $kost->luas_kamar) }}"
+           placeholder="Contoh: 12">
+</div>
+
 
         <div class="row">
             <div class="col mb-2">

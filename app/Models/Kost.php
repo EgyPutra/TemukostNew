@@ -20,6 +20,7 @@ class Kost extends Model
         'sisa_kamar',
         'deskripsi',
         'is_active',
+        'luas_kamar'
     ];
 
     public function owner()

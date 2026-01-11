@@ -3,14 +3,14 @@
 @section('content')
 <div class="container py-4">
 
-    {{-- ===== HERO SEARCH ===== --}}
-    <div class="p-4 p-md-5 bg-white rounded-4 shadow-sm mb-4"
-         style="background: radial-gradient(1200px circle at top left, #f2f6ff 0%, #ffffff 50%);">
+    {{-- ===== HERO SEARCH dengan GRADIENT BIRU ===== --}}
+    <div class="p-4 p-md-5 rounded-4 shadow-lg mb-4 text-white"
+         style="background: linear-gradient(135deg, #4A90E2 0%, #56CCF2 100%);">
         <div class="row align-items-center g-3">
             <div class="col-md-7">
                 <h2 class="fw-bold mb-2">TemuKost Bali</h2>
-                <p class="section-subtitle mb-3">
-                    Temukan kost terbaik di Bali. Putra, putri, atau campur — semua ada.
+                <p class="mb-3 opacity-90">
+                    Temukan kost terbaik di Bali. Putra, putri, atau campur — semua ada 
                 </p>
 
                 <form class="row g-2" method="GET" action="{{ route('home') }}">
@@ -40,18 +40,18 @@
                     </div>
 
                     <div class="col-md-1 d-grid">
-                        <button class="btn btn-primary btn-lg rounded-3">
+                        <button class="btn btn-light btn-lg rounded-3">
                             <i class="bi bi-search"></i>
                         </button>
                     </div>
 
-                    {{-- ✅ FILTER FASILITAS --}}
+                    {{-- FILTER FASILITAS --}}
                     @if(isset($facilities) && $facilities->count())
                         <div class="col-12 mt-3">
                             <div class="fw-bold mb-2">Fasilitas</div>
                             <div class="d-flex flex-wrap gap-2">
                                 @foreach($facilities as $f)
-                                    <label class="btn btn-outline-secondary btn-sm rounded-pill">
+                                    <label class="btn btn-outline-light btn-sm rounded-pill">
                                         <input type="checkbox"
                                                name="fac[]"
                                                value="{{ $f->id }}"
@@ -67,28 +67,28 @@
             </div>
 
             <div class="col-md-5 text-center">
-                <img src="https://images.unsplash.com/photo-1554995207-c18c203602cb?q=80&w=1200&auto=format&fit=crop"
-                     class="img-fluid rounded-4 shadow-sm"
+                <img src="/images/cari-kost.jpeg"
+                     class="img-fluid rounded-4 shadow-lg"
                      style="max-height:220px;object-fit:cover;">
             </div>
         </div>
     </div>
 
 
-    {{-- ===== SECTION: PROMO NGEBUT (slider horizontal) ===== --}}
+    {{-- SECTION: PROMO NGEBUT --}}
     <div class="d-flex justify-content-between align-items-center mb-2">
         <div>
-            <h4 class="section-title mb-0">Promo Ngebut <span class="text-success">Semua Kota</span></h4>
+            <h4 class="section-title mb-0">Promo Ngebut <span style="color: #28a745;">Semua Kota</span></h4>
             <div class="section-subtitle">Diskon spesial buat kamu</div>
         </div>
 
         <div class="d-flex gap-2">
-            <div class="nav-arrow" onclick="scrollRow('promoRow',-1)">
+            <button class="nav-arrow" onclick="scrollRow('promoRow',-1)">
                 <i class="bi bi-chevron-left"></i>
-            </div>
-            <div class="nav-arrow" onclick="scrollRow('promoRow',1)">
+            </button>
+            <button class="nav-arrow" onclick="scrollRow('promoRow',1)">
                 <i class="bi bi-chevron-right"></i>
-            </div>
+            </button>
             <a href="#" class="btn btn-outline-secondary btn-sm rounded-3 ms-2">Lihat semua</a>
         </div>
     </div>
@@ -102,20 +102,20 @@
     </div>
 
 
-    {{-- ===== SECTION: REKOMENDASI ===== --}}
-    <div class="d-flex justify-content-between align-items-center mb-2 mt-2">
+    {{-- SECTION: REKOMENDASI --}}
+    <div class="d-flex justify-content-between align-items-center mb-2 mt-5">
         <div>
-            <h4 class="section-title mb-0">Rekomendasi kost di <span class="text-success">Bali</span></h4>
+            <h4 class="section-title mb-0">Rekomendasi kost di <span style="color: #28a745;">Bali</span></h4>
             <div class="section-subtitle">Pilihan paling populer</div>
         </div>
 
         <div class="d-flex gap-2">
-            <div class="nav-arrow" onclick="scrollRow('rekomRow',-1)">
+            <button class="nav-arrow" onclick="scrollRow('rekomRow',-1)">
                 <i class="bi bi-chevron-left"></i>
-            </div>
-            <div class="nav-arrow" onclick="scrollRow('rekomRow',1)">
+            </button>
+            <button class="nav-arrow" onclick="scrollRow('rekomRow',1)">
                 <i class="bi bi-chevron-right"></i>
-            </div>
+            </button>
             <a href="#" class="btn btn-outline-secondary btn-sm rounded-3 ms-2">Lihat semua</a>
         </div>
     </div>
@@ -129,11 +129,10 @@
     </div>
 
 
-
-    {{-- ===== SECTION: ALL KOST (grid) ===== --}}
-    <div class="d-flex justify-content-between align-items-center mb-3">
+    {{-- SECTION: ALL KOST (grid) --}}
+    <div class="d-flex justify-content-between align-items-center mb-3 mt-5">
         <h4 class="section-title mb-0">Semua kost</h4>
-        <div class="section-subtitle">Total: {{ $kosts->total() }}</div>
+        <span class="badge bg-primary">Total: {{ $kosts->total() }}</span>
     </div>
 
     <div class="row g-3">
